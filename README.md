@@ -5,7 +5,15 @@
 $ npm install
 ```
 
-... and remember to configure `.env` file in apps/bff
+## BFF config
+Create a `.env` file in `apps/bff` folder to configure url pointing to the mock servers:
+
+```
+VEHICLE_SERVICE=wefox-doc-workshopfest-prism-vehicle-1:4003
+INSURANCE_SERVICE=wefox-doc-workshopfest-prism-insurance-1:4001
+QUOTATION_SERVICE=wefox-doc-workshopfest-prism-quotation-1:4002
+EMAIL_SERVICE=wefox-doc-workshopfest-prism-mail-1:4004
+```
 
 ## Launch a propject:
 ```
