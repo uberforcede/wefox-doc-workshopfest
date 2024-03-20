@@ -1,0 +1,103 @@
+openapi: 3.0.0
+info:
+  title: VehicleService
+  version: '1.0'
+  contact:
+    name: Francesco Catalano
+    email: francesco.catalano@wefox.com
+  license:
+    name: MIT
+servers:
+  - url: 'http://localhost:4003'
+paths:
+  '/vehicle/{plate}':
+    parameters:
+      - schema:
+          type: string
+        name: plate
+        in: path
+        required: true
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+              examples:
+                example-1:
+                  value:
+                    id: 100000
+                    brand: Fiat
+                    model: Sportback
+                    year: 2000
+                    antitheft: Satellitare
+                    finiture: '1.2'
+        '404':
+          description: Not Found
+      operationId: get-vehicle
+      description: Retrieve the vechicle information by plate
+components:
+  schemas:
+    Vehicle:
+      title: Vehicle
+      type: object
+      description: ''
+      x-examples:
+        example-1:
+          id: 100000
+          brand: Fiat
+          model: Sportback
+          year: 2000
+          antitheft: Satellitare
+          finiture: '1.2'
+      properties:
+        id:
+          type: integer
+          description: ''
+          format: int32
+          minimum: 100000
+          maximum: 100000000
+        brand:
+          type: string
+          enum:
+            - Fiat
+            - DMC
+            - Volvo
+            - Peugeot
+            - Renault
+            - Mercedes
+            - Bmw
+        model:
+          type: string
+          enum:
+            - Sportback
+            - Coupé
+            - X5
+            - Jazz
+            - Defender
+            - De Lorean
+            - Cooper
+        year:
+          type: integer
+          format: int32
+          minimum: 2000
+          maximum: 2024
+        antitheft:
+          type: string
+          enum:
+            - Satellitare
+            - None
+            - Meccanico
+            - Idraulico
+        finiture:
+          type: string
+          description: ''
+          enum:
+            - '1.2'
+            - hatch
+            - sport
+            - lux

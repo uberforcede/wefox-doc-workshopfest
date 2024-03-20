@@ -1,0 +1,14 @@
+{
+	"description": {
+		"prefix": "vprops",
+		"body": [
+			"defineProps({",
+			"  $1: {",
+			"    type: String,",
+			"    default: ''",
+			"  }",
+			"})"
+		],
+		"description": "Write vue props block"
+	}
+}

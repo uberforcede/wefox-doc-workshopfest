@@ -1,0 +1,15 @@
+{
+	"description": {
+		"prefix": "ve",
+		"body": [
+			"<template>",
+			"  <div class=\"-wrapper\"></div>",
+			"</template>",
+			"",
+			"<script setup>",
+			"",
+			"</script>"
+		],
+		"description": "Write vue starting file"
+	}
+}

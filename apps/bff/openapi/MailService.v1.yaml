@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: MailService
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /mail:
+    post:
+      summary: Send Email
+      operationId: send-email
+      responses:
+        '200':
+          description: Mail Send
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailResponse'
+              examples:
+                example-1:
+                  value:
+                    status: true
+        '409':
+          description: Conflict
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailRequest'
+            examples:
+              example-1:
+                value:
+                  quotationId: 98c8afab-b1d9-462f-9483-5a2dbf34985f
+        description: Post the necessary fields for the API to create a new user.
+      description: Send a new Email
+    parameters: []
+components:
+  schemas:
+    EmailRequest:
+      title: EmailRequest
+      type: object
+      description: ''
+      x-examples:
+        example-1:
+          quotationId: 98c8afab-b1d9-462f-9483-5a2dbf34985f
+      properties:
+        quotationId:
+          type: string
+          description: ''
+          format: uuid
+    EmailResponse:
+      title: EmailResponse
+      type: object
+      properties:
+        status:
+          type: boolean
+          default: true
+      x-examples:
+        example-1:
+          status: true

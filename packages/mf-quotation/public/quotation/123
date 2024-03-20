@@ -1,0 +1,16 @@
+{
+  "quotationId": "123-456-324-12344",
+  "birthdate": "1987-10-23",
+  "plate": "AB 563 WS",
+  "vehicle": {
+    "brand": "Opel",
+    "model": "Corsa",
+    "year": 2001
+  },
+  "status": "expired",
+  "price": {
+    "currency": "€",
+    "value": 1478.99
+  },
+  "expireDate": "2024-10-23"
+}

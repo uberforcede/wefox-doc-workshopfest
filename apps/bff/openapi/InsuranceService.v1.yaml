@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: InsuranceService
+  version: '1.0'
+  contact:
+    name: Francesco Catalano
+    email: francesco.catalano@wefox.com
+  license:
+    name: MIT
+  description: Example API for insurance Service
+servers:
+  - url: 'http://localhost:4000'
+paths:
+  '/insurance/{plate}/{birthdate}':
+    parameters:
+      - schema:
+          type: string
+        name: plate
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: birthdate
+        in: path
+        required: true
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceInfo'
+              examples:
+                example-1:
+                  value:
+                    id: 10000
+                    insuredValue: 1000
+                    status: active
+                    yearWithoutClaims: 2
+                    claimsLast5Years: 0
+        '404':
+          description: Not Found
+      operationId: get-insurance-info
+      description: Retrieve the insurance information by plate/birth
+components:
+  schemas:
+    InsuranceInfo:
+      title: InsuranceInfo
+      type: object
+      description: ''
+      x-examples:
+        example-1:
+          id: 10000
+          insuredValue: 1000
+          status: active
+          yearWithoutClaims: 2
+          claimsLast5Years: 0
+      properties:
+        id:
+          type: integer
+          description: ''
+          format: int32
+          minimum: 10000
+          maximum: 10000000
+        insuredValue:
+          type: integer
+          format: int32
+          minimum: 1000
+          maximum: 5000
+        status:
+          type: string
+          enum:
+            - active
+            - pending
+            - expired
+        yearWithoutClaims:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 5
+          example: 2
+        claimsLast5Years:
+          type: integer
+          format: int32
+          example: 0
+          minimum: 0
+          maximum: 5
