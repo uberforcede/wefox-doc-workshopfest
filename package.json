@@ -1,0 +1,8 @@
+{
+  "name": "workshopfest",
+  "version": "1.0.0",
+  "description": "Codemotion Workshop fest",
+  "workspaces": [ "apps/*", "packages/*" ],
+  "author": "Francesco Catalano (francesco.catalano@wefox.com)",
+  "license": "MIT"
+}

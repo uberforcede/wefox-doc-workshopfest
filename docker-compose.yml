@@ -1,0 +1,95 @@
+version: '3.8'
+services:
+  bff-app:
+    build:
+      dockerfile: Dockerfile
+      context: ./apps/bff
+      target: dev
+      args: 
+        flavor: "alpine"       
+    container_name: bff-app
+    init: true
+    command: ["npm", "run", "start:dev"]
+    volumes:
+      - ./apps/bff/.env:/app/.env:ro
+    ports:
+      - "3000:3000" 
+    networks:
+      infrastructure_network:
+
+  # frontend-app:
+  #   build:
+  #     context: ./apps/frontend
+  #     dockerfile: Dockerfile
+  #     target: dev
+  #     args:
+  #       flavor: "alpine"
+  #   container_name: frontend-app
+  #   working_dir: /app
+  #   command: ["npm", "run", "serve"]
+  #   ports:
+  #     - "9980:9980"
+  #   networks:
+  #     infrastructure_network:
+
+  prism-insurance:
+    image: stoplight/prism:4
+    command: 'mock -h 0.0.0.0 --port 4001 /tmp/InsuranceService.v1.yaml'
+    volumes:
+      - ./apps/bff/openapi/InsuranceService.v1.yaml:/tmp/InsuranceService.v1.yaml:ro
+    ports:
+      - '4001:4001'
+    networks:
+      infrastructure_network:
+
+  prism-quotation:
+    image: stoplight/prism:4
+    command: 'mock -h 0.0.0.0 --port 4002 /tmp/QuotationService.v1.yaml'
+    volumes:
+      - ./apps/bff/openapi/QuotationService.v1.yaml:/tmp/QuotationService.v1.yaml:ro
+    ports:
+      - '4002:4002'
+    networks:
+      infrastructure_network:
+
+  prism-vehicle:
+    image: stoplight/prism:4
+    command: 'mock -h 0.0.0.0 --port 4003 /tmp/VehicleService.v1.yaml'
+    volumes:
+      - ./apps/bff/openapi/VehicleService.v1.yaml:/tmp/VehicleService.v1.yaml:ro
+    ports:
+      - '4003:4003'
+    networks:
+      infrastructure_network:
+
+  prism-mail:
+    image: stoplight/prism:4
+    command: 'mock -h 0.0.0.0 --port 4004 /tmp/MailService.v1.yaml'
+    volumes:
+      - ./apps/bff/openapi/MailService.v1.yaml:/tmp/MailService.v1.yaml:ro
+    ports:
+      - '4004:4004'
+    networks:
+      infrastructure_network:
+      
+  # bff-prod:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #     target: prod
+  #     args: 
+  #       flavor: "alpine"       
+  #   container_name: bff-prod
+  #   init: true
+  #   # command: ["npm", "run", "start:prod"]
+  #   ports:
+  #     - "3000:3000" 
+  #   networks:
+  #     infrastructure_network:
+
+volumes:
+  notused: {}
+
+networks:
+  infrastructure_network:
+      external: true 

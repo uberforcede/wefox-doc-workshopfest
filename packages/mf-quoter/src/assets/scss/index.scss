@@ -1,0 +1,16 @@
+.dotted{
+  border: 1px dotted red;
+  margin: 10px;
+  padding: 10px;
+}
+//
+.control{
+  margin: 20px 0;
+  input{
+    width: 100%;
+  }
+}
+
+h1{
+  color: var(--primary-color);
+}

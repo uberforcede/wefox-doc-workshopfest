@@ -1,0 +1,9 @@
+{
+	"description": {
+		"prefix": "vemit",
+		"body": [
+			"defineEmits(['$1'])"
+		],
+		"description": "Write vue emit block"
+	}
+}

@@ -1,0 +1,240 @@
+openapi: 3.0.0
+info:
+  title: QuotationService
+  version: '1.0'
+  description: Example API for Quotation Service
+  contact:
+    name: Francesco Catalano
+    email: francesco.catalano@wefox.com
+  license:
+    name: MIT
+servers:
+  - url: 'http://localhost:4002'
+paths:
+  /quote:
+    parameters: []
+    post:
+      summary: ''
+      operationId: post-quotation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationResponse'
+              examples:
+                example-1:
+                  value:
+                    quotationId: 98c8afab-b1d9-462f-9483-5a2dbf34985f
+                    price:
+                      value: 572
+                      currency: €
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuotationRequest'
+            examples:
+              example-1:
+                value:
+                  plate: RB528TR
+                  birthdate: '2019-08-24'
+                  vehicle:
+                    id: 100000
+                    brand: Fiat
+                    model: Sportback
+                    year: 2000
+                    antitheft: Satellitare
+                    finiture: '1.2'
+                  insurance:
+                    id: 10000
+                    insuredValue: 1000
+                    status: active
+                    yearWithoutClaims: 2
+                    claimsLast5Years: 0
+      description: Create a quotation
+components:
+  schemas:
+    QuotationRequest:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          plate: RB528TR
+          birthdate: '2019-08-24'
+          vehicle:
+            id: 100000
+            brand: Fiat
+            model: Sportback
+            year: 2000
+            antitheft: Satellitare
+            finiture: '1.2'
+          insurance:
+            id: 10000
+            insuredValue: 1000
+            status: active
+            yearWithoutClaims: 2
+            claimsLast5Years: 0
+      title: QuotationRequest
+      properties:
+        plate:
+          type: string
+          minLength: 6
+          example: RB528TR
+          maxLength: 10
+        birthdate:
+          type: string
+          minLength: 1
+          format: date
+        vehicle:
+          $ref: '#/components/schemas/VehicleService.v1_Vehicle'
+        insurance:
+          $ref: '#/components/schemas/InsuranceService.v1_InsuranceInfo'
+    QuotationResponse:
+      title: QuotationResponse
+      type: object
+      x-examples:
+        example-1:
+          quotationId: 98c8afab-b1d9-462f-9483-5a2dbf34985f
+          price:
+            value: 572
+            currency: €
+          status: draft
+          expireDate: '2025-10-25'
+      properties:
+        quotationId:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/Price'
+        status:
+          type: string
+          enum:
+            - draft
+            - pending
+            - expired
+            - active
+          example: draft
+        expireDate:
+          type: string
+          format: date
+          example: '2025-10-25'
+    Price:
+      title: Price
+      type: object
+      properties:
+        value:
+          type: integer
+          minimum: 200
+          maximum: 964
+          format: int32
+          example: 572
+        currency:
+          type: string
+          default: €
+          example: €
+      x-examples:
+        example-1:
+          value: 572
+          currency: €
+    InsuranceService.v1_InsuranceInfo:
+      title: InsuranceInfo
+      type: object
+      description: ''
+      x-examples:
+        example-1:
+          id: 10000
+          insuredValue: 1000
+          status: active
+          yearWithoutClaims: 2
+          claimsLast5Years: 0
+      properties:
+        id:
+          type: integer
+          description: ''
+          format: int32
+          minimum: 10000
+          maximum: 10000000
+        insuredValue:
+          type: integer
+          format: int32
+          minimum: 1000
+          maximum: 5000
+        status:
+          type: string
+          enum:
+            - active
+            - pending
+            - expired
+        yearWithoutClaims:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 5
+          example: 2
+        claimsLast5Years:
+          type: integer
+          format: int32
+          example: 0
+          minimum: 0
+          maximum: 5
+    VehicleService.v1_Vehicle:
+      title: Vehicle
+      type: object
+      description: ''
+      x-examples:
+        example-1:
+          id: 100000
+          brand: Fiat
+          model: Sportback
+          year: 2000
+          antitheft: Satellitare
+          finiture: '1.2'
+      properties:
+        id:
+          type: integer
+          description: ''
+          format: int32
+          minimum: 100000
+          maximum: 100000000
+        brand:
+          type: string
+          enum:
+            - Fiat
+            - DMC
+            - Volvo
+            - Peugeot
+            - Renault
+            - Mercedes
+            - Bmw
+        model:
+          type: string
+          enum:
+            - Sportback
+            - Coupé
+            - X5
+            - Jazz
+            - Defender
+            - De Lorean
+            - Cooper
+        year:
+          type: integer
+          format: int32
+          minimum: 2000
+          maximum: 2024
+        antitheft:
+          type: string
+          enum:
+            - Satellitare
+            - None
+            - Meccanico
+            - Idraulico
+        finiture:
+          type: string
+          description: ''
+          enum:
+            - '1.2'
+            - hatch
+            - sport
+            - lux
